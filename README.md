@@ -1,7 +1,8 @@
 # 🧠 Elasticsearch Learning Lab
 **by Fatemeh Jani | Computer Engineer & DevOps Learner & Backend Developer**
 
-![Elastic Logo](https://upload.wikimedia.org/wikipedia/commons/0/05/Elastic_logo.svg)
+[![Elasticsearch Logo](https://upload.wikimedia.org/wikipedia/commons/f/f4/Elasticsearch_logo.svg)](https://www.elastic.co/)
+
 
 ---
 
