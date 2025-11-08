@@ -1,0 +1,1457 @@
+GET products/_search
+{
+  "query": { "match_all": {} },
+  "size": 100
+}
+GET products/_search
+{
+    "query": {
+        "match": {
+          "description": "cheap"
+          }
+        }
+    }
+GET products/_search
+{
+    "query": {
+        "match": {
+          "description": "classic"
+          }
+        }
+    }
+GET products/_search
+{
+    "query": {
+        "match": {
+          "description": "lux"
+          }
+        }
+    }
+GET products/_search
+{
+    "query": {
+        "term": {
+          "stock": true
+          }
+        }
+    }
+GET products/_search
+{
+    "query": {
+        "term": {
+          "stock": false
+          }
+        }
+    }
+GET products/_search
+{
+    "query": {
+        "term": {
+          "category": "cap"
+          }
+        }
+    }
+
+GET products/_search
+{
+    "query": {
+        "term": {
+          "category": "bag"
+          }
+        }
+    }
+GET products/_search
+{
+    "query": {
+        "term": {
+          "category": "shoes"
+          }
+        }
+    }
+GET products/_search
+{
+    "query": {
+        "term": {
+          "category": "scarf"
+          }
+        }
+    }
+GET products/_search
+{
+    "query": {
+        "term": {
+          "category": "dress"
+          }
+        }
+    }
+GET products/_search
+{
+    "query": {
+        "range": {
+          "price": {
+            "gte": 0,
+            "lte": 20
+          }
+        }
+    }
+}
+GET products/_search
+{
+    "query": {
+        "range": {
+          "price": {
+            "gte": 20,
+            "lte": 50
+          }
+        }
+    }
+}
+GET products/_search
+{
+    "query": {
+        "range": {
+          "price": {
+            "gte": 50,
+            "lte": 100
+          }
+        }
+    }
+}
+GET products/_search
+{
+  "query": {
+    "range": {
+      "rating": {
+        "gte": 1,
+        "lte": 2
+      }
+    }
+  }
+}
+GET products/_search
+{
+    "query": {
+        "fuzzy": {
+          "description": {
+            "value":"chep",
+            "fuzziness":"AUTO"
+          }
+        }
+    }
+}
+GET products/_search
+{
+  "query": {
+    "fuzzy": {
+      "description": {
+        "value": "clasic",
+        "fuzziness": "AUTO"
+      }
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "fuzzy": {
+      "category": {
+        "value": "capA",
+        "fuzziness": "AUTO"
+      }
+    }
+  }
+}
+GET _cat/indices
+GET /_cluster/health
+GET products/_search
+{
+  "query":{
+    "match": {
+      "description": "high quality"
+    }
+
+  }
+}
+GET products/_search
+{
+  "query": {
+    "match": {
+      "description": "pretty"
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        { "term": { "stock": true } },
+        { "term": { "category": "bag" } }
+      ]
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {"term": {"stock": true }},
+        {"term":{"category":"cap" }}
+      ]
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {"term":{"stock": true }},
+        {"range":{"price": {
+          "lte": 50
+        }}}
+      ]
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {"term":{"stock": true}},
+        {"range":{"price": {
+          "gte": 20,
+          "lte": 50
+        }}}
+      ]
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {"term":{"color":"blue"}},
+        {"term":{"color": "red"}}
+      ]
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        { "term": { "discount": true } },
+        { "term": { "is_new": true } }
+      ],
+      "minimum_should_match": 1
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must_not": [
+        {"term":{"category":"cap"}}
+      ]
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must_not": [
+        {"term":{"brand":"brandC"}}
+      ]
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {"term":{"stock":true }}
+      ],
+      "should": [
+        {"term":{"color":"blue"}},
+        {"term":{"color":"red"}}
+      ],
+      "minimum_should_match": 1
+    }
+}
+}
+
+GET products/_search
+{
+  "query": {
+    "prefix": {"color": "bl"}
+  }
+}
+GET products/_search
+{
+  "query": {
+    "prefix": {"product_id":"P020"}
+  }
+}
+
+
+GET products/_mapping
+
+GET products/_search
+{
+  "size": 0,
+  "aggs": {
+    "products_per_category": {
+      "terms": {
+        "field": "category"
+      }
+    }
+  }
+}
+
+GET products/_search
+{
+  "size": 0,
+  "aggs": {
+    "products_per_category": {
+      "terms": {
+        "field": "category"
+          },
+          "aggs": {
+            "products_per_category_avg": {
+              "avg": {
+                "field": "price"
+              }
+            }
+          }
+      }
+    }
+  }
+
+GET products/_search
+{
+  "size": 0,
+  "aggs": {
+    "max_per_cat": {
+      "terms": {
+        "field": "category"
+      },
+      "aggs": {
+        "max_price": {
+          "max": {
+            "field": "price"
+          }
+        }
+      }
+    }
+  }
+}
+GET products/_search
+{
+  "size": 0,
+  "aggs": {
+    "min_per_cat": {
+      "terms": {
+        "field": "category"
+      },
+      "aggs": {
+        "min_price": {
+          "min": {
+            "field": "price"
+          }
+        }
+      }
+    }
+  }
+}
+GET products/_search
+{
+  "size":0,
+  "aggs": {
+    "count_per_size": {
+      "terms": {
+        "field": "size"
+      }
+    }
+  }
+}
+GET products/_search
+{
+  "_source": ["product_id","price"],
+  "script_fields": {
+    "final_price": {
+      "script": {
+        "source": "doc['price'].value-50"
+      }
+    }
+  }
+}
+
+PUT products/_mapping
+{
+  "properties": {
+    "rating": { "type": "float" }
+  }
+}
+GET products/_search
+{
+  "_source": ["product_id","rating"],
+  "script_fields": {
+    "final_rate": {
+      "script": {
+        "source": "doc['rating'].value * 2"
+      }
+    }
+  }
+}
+POST products/_update_by_query
+{
+  "script": {
+    "source": "ctx._source.rating = 5"
+  },
+  "query": {
+    "match_all": {}
+  }
+}
+GET products/_search
+{
+  "query": {
+    "query_string": {
+      "query": "cheap OR lux",
+      "fields": ["category","description"]
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "query_string": {
+      "query": "category:Category*"
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "match": {
+      "description": "exclusive"
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "match": {
+      "description": "limited"
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "fuzzy": {
+      "description": {
+        "value":"exclusive",
+        "fuzziness": "AUTO"
+      }
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "fuzzy": {
+      "description": {
+        "value":"limited",
+        "fuzziness": "AUTO"
+      }
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "wildcard": {
+      "tags": {
+        "value": "new*"
+      }
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "wildcard": {
+      "tags": {
+        "value": "sale*"
+      }
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "range": {
+      "insert_time": {
+        "gte": "2025-01-01T00:00:00"
+      }
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "range": {
+      "insert_time": {
+        "lt": "2025-06-01T00:00:00"
+      }
+    }
+  }
+}
+
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {"term": {"stock":true}}
+      ],
+      "filter": [
+        {"range": {
+          "price": {
+            "gte": 0,
+            "lte": 50
+          }
+        }}
+      ]
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {"term": {
+          "stock": true
+        }}
+      ],
+      "should": [
+        {
+          "term": {
+            "color": "blue"
+            }
+        },
+        {
+          "term": {
+            "color": "red"
+          }
+        }
+      ],
+      "filter": [
+        { "range": { "price": { "lt": 50 } } }
+      ]
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must_not": [
+        {
+          "term":{"category":"dress"}
+        }
+      ],
+      "filter": [
+        {
+        "range":{
+          "price":{"gte": 20}
+        }}
+      ]
+    }
+  }
+}
+GET products/_search
+{
+  "size": 0,
+  "aggs": {
+    "in_stock": {
+      "filter": {
+        "term": { "stock": true }
+      },
+      "aggs": {
+        "in_stock_avg": {
+          "avg": { "field": "price" }
+        }
+      }
+    }
+  }
+}
+GET products/_search
+{
+  "size":0,
+  "aggs": {
+    "price_range": {
+      "filter": {
+        "range": {
+          "price": {
+            "gte": 20,
+            "lte": 50
+          }
+        }
+      },
+      "aggs": {
+        "category_price_range": {
+          "terms": {
+            "field": "category"
+          }
+        }
+      }
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {"term":{"stock": true}},
+        {
+        "script":{
+          "script":{
+            "source": "doc['price'].value<50"
+          }
+        }
+        }
+      ]
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "query_string": {
+            "query": "classic OR cheap",
+            "fields": ["category"]
+          }
+        },
+        {
+          "fuzzy": {
+            "category": {
+              "value": "classic",
+              "fuzziness": "AUTO"
+            }
+          }
+        },
+        {
+          "fuzzy": {
+            "category": {
+              "value": "cheap",
+              "fuzziness": "AUTO"
+            }
+          }
+        }
+      ],
+      "minimum_should_match": 1
+    }
+  }
+}
+
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "prefix": {
+            "color":"bl"
+          }
+        },
+        {
+          "match": {
+            "description": "lux"
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "wildcard": {
+            "product_id": {
+              "value": "p00*"
+            }
+          }
+        },
+        {
+          "term": {
+            "color": {
+              "value": "red"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {"stock": true }
+        }
+      ],
+      "must_not": [
+        {"term": {"category": "bag"}}
+      ]
+    }
+  }
+}
+
+
+GET products/_search
+{
+  "size": 0,
+  "aggs": {
+    "price_range": {
+      "filter": {
+        "range": {
+          "price": {
+            "gte": 20,
+            "lte": 50
+          }
+        }
+      },
+        "aggs": {
+          "count_by_size": {
+            "terms": {
+              "field": "size"
+            }
+          }
+        }
+      }
+    }
+  }
+
+GET products/_search
+{
+  "query": {
+    "range": {
+      "price": {
+        "gte": 50
+      }
+    }
+  },
+  "script_fields": {
+    "price_after_discount": {
+      "script": {
+        "source": "doc['price'].value - 40"
+      }
+    }
+  }
+}
+
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {"stock":true }
+        },
+        {
+          "fuzzy": {
+            "description": {
+              "value":"chep",
+              "fuzziness": "AUTO"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "term": {
+            "color": {
+              "value": "red"
+            }
+          }
+        },
+        {
+          "term": {
+            "color": {
+              "value": "blue"
+            }
+          }
+        },
+        {
+          "fuzzy": {
+            "description": {
+              "value":"chep",
+              "fuzziness": "AUTO"
+            }
+          }
+        }
+      ],
+      "minimum_should_match": 1
+    }
+  }
+}
+
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term":{"stock": true}
+        },
+        {
+          "wildcard": {
+            "product_id": {
+              "value": "p0*",
+              "case_insensitive": true
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "wildcard": {
+            "description": {
+              "value": "classic"
+            }
+          }
+        }
+      ],
+    "filter": [
+      {
+        "range": {
+          "price": {
+            "lte": 50
+          }
+        }
+      }
+    ]
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "query_string": {
+            "query": "cassic OR M",
+            "fields": ["description","size"]
+          }
+        },
+        {
+          "term":{"stock":true}
+        }
+      ]
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "query_string": {
+            "query":"lux OR classic",
+            "fields": ["description"]
+          }
+        }
+      ],
+      "filter": [
+        {
+          "range":
+          {
+            "price": {
+              "lt": 50
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+GET products/_search
+{
+    "size" : 0,
+    "query": {
+        "match_all":{}
+    },
+    "aggs": {
+      "count_by_category": {
+        "terms": {"field":""}
+      }
+    }
+}
+
+GET products/_search
+{
+    "query": {
+        "match_all": {}
+    },
+    "script_fields": {
+      "final_price_with_discount": {
+        "script": {
+            "source": "doc['price'].value - 50"
+        }
+      }
+    }
+}
+GET products/_search
+{
+    "query": {
+        "bool": {
+            "must": [
+              {
+                "term": {
+                  "stock": {
+                    "value": true
+                  }
+                }
+              }
+            ],
+            "filter": [
+              {
+                "range": {
+                  "rating": {
+                    "gte": 3,
+                    "lte": 5
+                  }
+                }
+              }
+            ]
+        }
+    }
+
+}
+GET products/_search
+{
+    "query": {
+        "bool": {
+            "should": [
+              {"term":{"color":"blue"}},
+              {"term":{"color":"red"}}
+            ],
+            "filter": [
+              {
+                "range":
+                {
+                    "price":{
+                        "lt": 50
+                    }
+                }
+              }
+            ]
+        }
+    }
+}
+GET products/_search
+{
+    "query": {
+        "bool": {
+            "must": [
+              {
+                "fuzzy": {
+                    "description": {
+                    "value":"clasic",
+                    "fuzziness":"AUTO"
+                }
+                }}
+            ],
+            "must_not": [
+              {"term":{"category":"dress"}}
+            ]
+        }
+    }
+}
+
+GET products/_search
+{
+    "size": 0 ,
+    "query":{
+        "range": {
+          "price": {
+            "gte": 20,
+            "lte": 50
+          }
+        }
+    },
+    "aggs": {
+      "count_per_category": {
+        "terms": {
+            "field":"category"
+        },"aggs": {
+          "avg_per_price": {
+            "avg": {
+                "field": "price"
+            }
+          }
+        }
+      }
+    }
+}
+
+GET products/_search
+{
+  "size": 0,
+  "query": {
+    "term":{"stock":true}},
+    "aggs": {
+      "count_per_catagery": {
+        "terms": {
+          "field": "category"
+        },
+        "aggs": {
+          "avg_category_price": {
+            "avg": {
+              "script": {
+                  "source": "doc['price'].value - 50"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term":{"stock": true}
+        },{
+          "query_string": {
+            "query": "cheap OR size:M",
+            "fields": ["description","size"]
+          }}
+      ]
+    }
+  }
+}
+
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {"term":{"color":"red"}},
+        {"term":{"color":"blue"}},
+        {"query_string":{
+          "query":"cheap OR lux",
+          "fields": ["description"]
+        }
+        }
+      ],
+      "minimum_should_match": 1
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "prefix":{
+            "color": {
+              "value":"bl"
+            }
+          }
+        },
+        {
+          "fuzzy": {
+            "description": {
+              "value":"clasic"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {"wildcard":{"product_id":"P0*"}},
+        {"fuzzy":{"description":{"value":"chep"}}}
+      ]
+    }
+  }
+}
+GET products/_search
+{
+  "size":0,
+  "query": {
+    "script": {
+      "script": {
+        "source": "doc['price'].value - 50 < 50 "
+      }
+    }
+  },
+  "aggs": {
+    "by_category": {
+      "terms": {
+        "field": "category"
+      },"aggs": {
+        "avg_price_by_category_discount": {
+          "avg": {
+            "field": "price"
+          }
+        }
+      }
+    }
+  }
+}
+
+
+GET products/_search
+{
+    "query": {
+        "bool": {
+            "must": [
+              {"term":{"stock":true}}
+            ],"should": [
+              {"term":{"color":"blue"}},
+              {"term":{"color":"red"}}
+            ],"filter": [
+        { "range": { "price": { "lt": 50 } } },
+        { "range": { "rating": { "gt": 3 } } }
+      ]
+        }
+    }
+}
+GET products/_search
+{
+    "size": 0,
+    "query": {
+        "bool": {
+            "must": [
+              {"term":{"stock":true}},
+              {"script":{"script":{"source":"doc['price'].value - 50 < 50"}}}
+            ]
+        }
+    },
+    "aggs": {
+      "by_price": {
+        "terms": {
+            "field": "size"
+        },
+        "aggs": {
+          "avg_price": {
+            "avg": {
+                "field": "price"
+            }
+          }
+        }
+      }
+    }
+}
+
+GET products/_search
+{
+    "query":{
+        "bool": {
+            "must": [
+              {"fuzzy":{
+                "description": {
+                    "value":"clasic"
+                }
+               }
+              },
+              {
+                "range": {
+                  "price": {
+                    "gte": 20,
+                    "lte": 50
+                  }
+                }
+              }
+            ],"must_not": [
+              {
+                "term": {
+                  "category": {
+                    "value": "cap"
+                  }
+                }
+              }
+            ]
+        }
+    }
+}
+GET products/_search
+{
+    "query":{
+        "bool":
+        {
+            "must":[
+                {"term":{"stock":true}},
+                {"wildcard":{"product_id":"P0*"}},
+                {"query_string":{
+                    "query":"cheap OR lux",
+                    "fields": ["description"]
+                }}
+            ]
+        }
+    }
+}
+GET products/_search
+{
+    "query": {
+        "bool": {
+            "must": [
+              {"term":{"stock":true}}
+            ]
+        }
+    },"aggs": {
+      "by_category": {
+        "terms": {
+            "field": "category"
+        },
+        "aggs": {
+          "final_avg": {
+            "avg": {
+                "script": {
+                    "source": "doc['price'].value - 50"
+                }
+            }
+          }
+        }
+      }
+    }
+}
+GET products/_search
+{
+    "query": {
+        "bool": {
+            "must": [
+              {"term":{"stock":true}},
+              {"fuzzy": {
+                "description": {
+                    "value":"clasic"
+                }
+              }},
+              {
+                "prefix": {
+                  "color": {
+                    "value": "bl"
+                  }
+                }
+              }
+            ]
+
+        }
+    }
+}
+GET products/_search
+{
+    "query": {
+        "bool": {
+            "should":[
+                {"term":{"color": "red"}},
+                {"wildcard":{"category":"cap*"}}
+            ],
+                "filter": [
+                  {"range":{
+                    "price": {
+                        "lt": 50
+                    }
+                  }
+
+                  }
+                ]
+            }
+        }
+    }
+
+GET products/_search
+{
+  "size": 0,
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "query_string": {
+            "query": "cheap OR lux",
+            "fields": ["description"]
+          }
+        },
+        {
+          "script": {
+            "script": {
+              "source": "doc['price'].value - doc['discount'].value < 50"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "aggs": {
+    "by_category": {
+      "terms": {
+        "field": "category"
+      },
+      "aggs": {
+        "avg_price_by_category": {
+          "avg": {
+            "field": "price"
+          }
+        }
+      }
+    }
+  }
+}
+
+GET products/_search
+{
+  "size": 0,
+  "query": {
+    "bool": {
+      "must": [
+        {"term":{"stock":true}},
+        {"range":{"price":{
+          "gt": 0 ,
+          "lt": 50
+        }}}
+      ]
+    }
+  },
+  "aggs": {
+    "count_cat": {
+      "terms": {"field":"category"}
+    }
+  }
+}
+
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {"term":{"stock":true}},
+        {"fuzzy":{"description":"clasic"}},
+        {"range":{"price":{"gt":50}}}
+      ]
+    }
+  }
+}
+
+GET products/_search
+{
+  "size": 0 ,
+  "query": {
+    "bool": {
+      "must": [
+        {"term":{"stock":true}}
+      ],
+      "should": [
+        {"term":{"color":"blue"}},
+        {"term":{"color":"red"}}
+      ],
+      "minimum_should_match": 1,
+      "filter": [
+        {"script":{
+          "script": {
+            "source": "doc['price'].value - 50 < 50"
+          }
+        }}
+      ]
+    }
+  },
+  "aggs": {
+    "cat": {
+      "terms": {
+        "field":"category"
+      },"aggs": {
+        "final": {
+          "avg": {"field":"price"}
+        }
+      }
+    }
+  }
+}
+
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {"wildcard":{"product_id":"P0*"}},
+        {"fuzzy":{"description":"chep"}}
+      ],
+      "must_not": [
+        {"term":{"category":"cap"}}
+      ]
+    }
+  }
+}
+GET products/_search
+{
+  "size": 0,
+  "query": {
+    "bool": {
+      "must": [
+        {"prefix":{"color":"bl"}},
+        {"range":{"price":{"lt": 20}}}
+      ]
+    }
+  },
+  "aggs": {
+    "by_size": {
+      "terms": {"field":"size"},
+      "aggs": {
+        "final_avg": {
+          "avg": {"field":"price"}
+        }
+      }
+    }
+  }

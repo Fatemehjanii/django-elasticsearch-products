@@ -128,10 +128,9 @@ python manage.py runserver
 ## 👩‍💻 Author
 **Fatemeh Jani**  
 Computer Engineer | DevOps & AI Enthusiast  
-Member of **Venomuse Rose Team** 🌸  
 Focus: Automation • Search Systems • Data Engineering  
 
-🔗 [GitHub Profile](https://github.com/Fatemehjanii)
+🔗https://github.com/Fatemehjanii
 
 ---
 
